@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小强一号 | AI 智能伴侣</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- 1. 全屏视频背景 -->
+    <div id="video-container">
+        <video id="camera-feed" autoplay playsinline muted></video>
+    </div>
+
+    <!-- 2. 可视化 Canvas 层 (Visualizer) -->
+    <canvas id="visualizer-canvas"></canvas>
+
+    <!-- 3. UI 交互层 -->
+    <div id="ui-layer">
+
+        <!-- 顶部栏 -->
+        <div class="top-bar">
+            <div class="brand">
+                <i class="fa-solid fa-robot"></i> 小强一号
+            </div>
+
+            <div class="status-panel">
+                <div class="status-item">
+                    <span id="ws-status-dot" class="status-dot"></span> WS连接
+                </div>
+                <div class="status-item">
+                    <span id="si-status-dot" class="status-dot"></span> 身份识别
+                </div>
+                <span style="color: #666">|</span>
+                <span id="system-status-text">等待启动...</span>
+            </div>
+        </div>
+
+        <!-- 中心 Avatar -->
+        <div class="center-stage">
+            <div id="avatar-container">
+                <canvas id="avatar-canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- 左侧聊天记录 -->
+        <div id="chat-sidebar">
+            <div class="chat-header">对话记录</div>
+            <div id="chat-list">
+                <!-- 动态插入 -->
+            </div>
+        </div>
+
+        <!-- 底部控制栏 -->
+        <div class="bottom-controls">
+            <button id="toggle-debug-btn" class="cyber-btn">
+                <i class="fa-solid fa-code"></i> 调试 / 注册
+            </button>
+        </div>
+
+        <!-- 调试/注册面板 -->
+        <div id="debug-panel">
+            <div class="panel-header">声纹注册</div>
+            <div class="input-row">
+                <input type="text" id="debug-name-input" placeholder="输入只用者名字...">
+            </div>
+            <button id="register-confirm-btn" class="cyber-btn" style="width:100%">
+                <i class="fa-solid fa-fingerprint"></i> 注册当前声音
+            </button>
+            <div style="margin-top:10px; font-size:12px; color:#aaa;">
+                * 确保持续说话至少3秒后点击注册
+            </div>
+            <div style="margin-top:10px;">
+                <a href="/static/index_legacy.html" style="color:var(--primary-color)">返回旧版界面</a>
+            </div>
+
+            <!-- 已注册列表 -->
+            <div id="registered-section" style="margin-top: 20px; border-top: 1px solid #444; padding-top: 15px;">
+                <div class="panel-header" style="font-size: 14px; border: none; padding: 0; margin-bottom: 10px;">
+                    已注册用户 <i class="fa-solid fa-sync" style="cursor: pointer; float:right;"
+                        onclick="loadSpeakerList()"></i>
+                </div>
+                <div id="speaker-list">
+                    <div style="color: #666; font-size: 12px; text-align: center;">暂无数据</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 启动遮罩 -->
+    <div id="intro-overlay"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; background: black; z-index: 100; display:flex; justify-content:center; align-items:center; flex-direction:column; gap:20px;">
+        <h1 style="font-size: 40px; color: var(--primary-color); text-shadow: 0 0 20px var(--primary-color);">小强一号</h1>
+        <p style="color: #aaa;">AI 语音助手原型机</p>
+        <button id="start-btn" class="cyber-btn" style="font-size: 20px; padding: 15px 40px;">
+            <i class="fa-solid fa-power-off"></i> 启动系统
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/visualizer.js"></script>
+    <script src="/static/js/avatar.js"></script>
+    <script src="/static/js/app.js"></script>
+
+</body>
+
+</html>
